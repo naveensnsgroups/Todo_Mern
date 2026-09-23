@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
-import TaskContext from "../context/TaskContext";
-import CompletedTask from "./CompletedTask";
-function Completed() {
+"use client";
+import React, { useContext } from 'react';
+import CompletedTask from '@/components/CompletedTask';
+import TaskContext from '@/context/TaskContext';
+
+export default function CompletedTaskPage() {
     const { tasks } = useContext(TaskContext);
+    const completedTasks = tasks ? tasks.filter(t => t.completed) : [];
+
     return (
         <div>
             {
-                (tasks.length !== 0) ? (
+                (completedTasks.length !== 0) ? (
                     tasks.map((task, index) => {
                         return (
                             task.completed && <CompletedTask
@@ -14,14 +18,12 @@ function Completed() {
                                 task={task}
                                 id={index}
                             />
-                        )
+                        );
                     })
                 ) : (
-                    <h1>No Task Found</h1>
+                    <h1 className="text-center text-gray-500 mt-6 text-lg">No Task Found</h1>
                 )
             }
         </div>
     );
 }
-
-export default Completed;
