@@ -1,13 +1,14 @@
-import React from 'react';
-import Task from './Task/Task';
-import { useContext } from 'react';
-import TaskContext from '../context/TaskContext';
-function AllTask() {
+"use client";
+import React, { useContext } from 'react';
+import Task from '@/components/Task/Task';
+import TaskContext from '@/context/TaskContext';
+
+export default function AllTaskPage() {
     const { tasks } = useContext(TaskContext);
     return (
         <div>
             {
-                (tasks.length !==0) ? (
+                (tasks && tasks.length !== 0) ? (
                     tasks.map((task, index) => {
                         return (
                             <Task
@@ -15,14 +16,12 @@ function AllTask() {
                                 task={task}
                                 id={index}
                             />
-                        )
+                        );
                     })
                 ) : (
-                    <h1>No Task Found</h1>
+                    <h1 className="text-center text-gray-500 mt-6 text-lg">No Task Found</h1>
                 )
             }
         </div>
     );
 }
-
-export default AllTask;
